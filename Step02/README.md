@@ -4,6 +4,11 @@
 
 想要添加库，使用`add_library()`命令并指定生成该库的源文件
 
+```cmake
+add_library(MathFunctions mysqrt.cxx)
+
+```
+
 相对于把所有文件都放在同一个文件夹下，CMake更推荐使用多个文件夹组织项目。
 
 在这种情况下，需要为库创建一个子文件夹。在子文件夹内创建一个`CMakeLists.txt`管理文件夹中的源代码。在上一级文件夹下的`CMakeLists.txt`中使用`add_subdirectory()`添加文件夹。
@@ -17,6 +22,18 @@
 使用`list()`函数在CMake的`if()`语句块中生成库和头文件列表，在指定目标的库和头文件目录时，使用前面生成的变量而不是显示写出库名称和文件路径
 
 `option()`命令要在`configure`前面，因为要在`TutorialConfig.h.in`中使用`#cmakedefine`，该指令会用到`USE_MYMATH`
+
+```cmake
+option(USE_MYMATH "Use tutorial provided math implementation" ON)
+
+
+if(USE_MYMATH)
+    add_subdirectory(MathFunctions)
+    list(APPEND EXTRA_LIBS MathFunctions)
+    list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/MathFunctions")
+endif()
+
+```
 
 ## 源码
 

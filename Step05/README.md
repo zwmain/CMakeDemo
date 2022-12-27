@@ -6,8 +6,20 @@
 
 在CMake中支持构建的本地安装通常与指定安装位置以及要安装的目标和文件一样简单。
 
+安装库文件
 
+```cmake
+set(installable_libs MathFunctions tutorial_compiler_flags)
+install(TARGETS ${installable_libs} DESTINATION lib)
 
+```
+
+安装头文件
+
+```cmake
+install(FILES MathFunctions.h DESTINATION include)
+
+```
 
 
 

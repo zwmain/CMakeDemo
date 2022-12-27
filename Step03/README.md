@@ -14,6 +14,19 @@
 
 这样，在顶层CMake中，就直接链接库，而不需要指定include目录
 
+```cmake
+add_library(MathFunctions mysqrt.cxx)
+target_include_directories(MathFunctions INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+
+```
+
+```cmake
+target_link_libraries(Tutorial PUBLIC ${EXTRA_LIBS})
+target_include_directories(Tutorial PUBLIC
+                           "${PROJECT_BINARY_DIR}"
+                           )
+
+```
 
 
 

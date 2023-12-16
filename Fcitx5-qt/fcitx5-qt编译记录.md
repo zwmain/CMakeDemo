@@ -166,11 +166,60 @@ QtCreator链接的是自己的Qt库，所以插件也要安装到其自己的plu
 
 知道了Qt版本后，流程和上面一样，最后把插件复制到软件安装目录的`plugins/platforminputcontexts`，没有就新建
 
-## 遇到的错误
+## 错误及解决方法
 
 ```txt
--- Configuring incomplete, errors occurred!
-See also "/home/leo/Code/fcitx5-qt/build/CMakeFiles/CMakeOutput.log".
+CMake Error at CMakeLists.txt:9 (find_package):
+  By not providing "FindECM.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "ECM", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "ECM" (requested
+  version 1.4.0) with any of the following names:
+
+    ECMConfig.cmake
+    ecm-config.cmake
+
+  Add the installation prefix of "ECM" to CMAKE_PREFIX_PATH or set "ECM_DIR"
+  to a directory containing one of the above files.  If "ECM" provides a
+  separate development package or SDK, be sure it has been installed.
+
+```
+
+解决方法：
+
+```shell
+sudo apt install extra-cmake-modules
+```
+
+```txt
+CMake Error at CMakeLists.txt:52 (find_package):
+  By not providing "FindFcitx5Utils.cmake" in CMAKE_MODULE_PATH this project
+  has asked CMake to find a package configuration file provided by
+  "Fcitx5Utils", but CMake did not find one.
+
+  Could not find a package configuration file provided by "Fcitx5Utils"
+  (requested version 5.0.16) with any of the following names:
+
+    Fcitx5UtilsConfig.cmake
+    fcitx5utils-config.cmake
+
+  Add the installation prefix of "Fcitx5Utils" to CMAKE_PREFIX_PATH or set
+  "Fcitx5Utils_DIR" to a directory containing one of the above files.  If
+  "Fcitx5Utils" provides a separate development package or SDK, be sure it
+  has been installed.
+
+```
+
+解决方法：
+
+
+```shell
+sudo apt install libfcitx5utils-dev
+```
+
+
+```txt
 CMake Error at /usr/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
   Could NOT find Gettext (missing: GETTEXT_MSGMERGE_EXECUTABLE
   GETTEXT_MSGFMT_EXECUTABLE)
@@ -179,10 +228,40 @@ Call Stack (most recent call first):
   /usr/share/cmake-3.25/Modules/FindGettext.cmake:81 (FIND_PACKAGE_HANDLE_STANDARD_ARGS)
   CMakeLists.txt:69 (find_package)
 
+```
+
+解决方法：
+
+
+```shell
+sudo apt install gettext
+```
+
+```txt
+CMake Error at qt6/CMakeLists.txt:2 (find_package):
+  Could not find a package configuration file provided by "Qt6" (requested
+  version 6.0.0) with any of the following names:
+
+    Qt6Config.cmake
+    qt6-config.cmake
+
+  Add the installation prefix of "Qt6" to CMAKE_PREFIX_PATH or set "Qt6_DIR"
+  to a directory containing one of the above files.  If "Qt6" provides a
+  separate development package or SDK, be sure it has been installed.
+```
+
+解决方法：
+
+
+```shell
+cmake -S . -B build -DCMAKE_PREFIX_PATH="/opt/Qt/6.5.2/gcc_64/"
+```
+
+```txt
 CMake Error at qt6/CMakeLists.txt:5 (find_package):
   Found package configuration file:
 
-    /opt/Qt/6.5.3/gcc_64/lib/cmake/Qt6WaylandClient/Qt6WaylandClientConfig.cmake
+    /opt/Qt/6.5.2/gcc_64/lib/cmake/Qt6WaylandClient/Qt6WaylandClientConfig.cmake
 
   but it set Qt6WaylandClient_FOUND to FALSE so package "Qt6WaylandClient" is
   considered to be NOT FOUND.  Reason given by package:
@@ -196,7 +275,17 @@ CMake Error at qt6/CMakeLists.txt:5 (find_package):
   Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
   of the path variables that find_package uses to try and find the package.
 
-
-
 ```
+
+解决方法：
+
+
+```shell
+sudo apt install \
+build-essential \
+libgl1-mesa-dev \
+libwayland-dev \
+libvulkan-dev
+```
+
 
